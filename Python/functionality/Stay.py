@@ -81,7 +81,9 @@ class Stay:
             print("===========================================")
             
         
-        
+    def ChangeTotalPrice(self,new_total_price):
+        self.total_price = new_total_price
+        self.per_night_total_cost = self.total_price/float(self.num_nights);
         
     def ChangePersonNights(self, name="", nights_staying=[]):
         
