@@ -134,7 +134,7 @@ class Stay:
         if(print_summary):
             print("===========================================")
             print('New Price Breakdown Summary:')
-            print("Total Price: {}".format(self.total_price))
+            print("Total Price: ${}".format(self.total_price))
             for j in range(self.num_guests):
                 print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
                 
@@ -147,7 +147,6 @@ class Stay:
     
         if(print_summary):
             print('\nHow to redistribute:')
-            print("Total Price: {}".format(self.total_price))
             for j in range(self.num_guests):
                 print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
                 
