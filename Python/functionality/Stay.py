@@ -2,7 +2,7 @@
 
 class Stay:
     
-    
+    # Constructor
     def __init__(self, total_price=1, num_nights=1):
         
         self.total_price = total_price
@@ -10,25 +10,31 @@ class Stay:
         self.name_list = []
         self.nights_staying_list = []
         
+        # Total Cost each night
         self.per_night_total_cost = total_price/float(num_nights);
 
+        # Flag for if original cost was calculated
         self.original_costs_calculated = False
         self.num_guests = 0
         
     
     def AddPerson(self, name="", nights_staying=[]):
-        
+      
+        # Check if the person added is already in the name list
         if(any(i in name for i in self.name_list)):
             raise AttributeError("Person {} already added to list. Change name to distinguish.".format(name))
- 
+
+        # Checks if person is staying after checkout.  Can't do this!
         if(not all(y < self.num_nights for y in nights_staying)):
             raise AttributeError("Person {} cannot stay after the {}th night.".format(name, self.num_nights))
 
-        if(not self.original_costs_calculated):
+        
+        if(not self.original_costs_calculated): # before original costs calcualted
             self.nights_staying_list.append(nights_staying)
             self.name_list.append(name)
             self.num_guests += 1
-        else:
+            
+        else: # after original costs calculated
             self.nights_staying_list.append(nights_staying)
             self.name_list.append(name)
             self.person_shareprice_list_orig.append(0.0)
@@ -86,9 +92,14 @@ class Stay:
         self.per_night_total_cost = self.total_price/float(self.num_nights);
         
     def ChangePersonNights(self, name="", nights_staying=[]):
+        index = self.name_list.index(name)  # Get index of person with input name   
+        self.nights_staying_list[index] = nights_staying  # Change the list of the nights they're staying
         
-        index = self.name_list.index(name)       
-        self.nights_staying_list[index] = nights_staying
+    def RemovePerson(self, name=""):
+        index = self.name_list.index(name)  # Get index of person with input name
+        self.nights_staying_list.pop(index)
+        self.name_list.pop(index)
+        self.num_guests -= 1
         
         
     def CalculateRedistribution(self, print_summary=True):
