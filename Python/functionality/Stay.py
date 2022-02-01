@@ -43,9 +43,9 @@ class Stay:
     
     def CalculateOriginalCosts(self, print_summary=True):
         
-        self.per_person_cost_each_night_orig = []
-        self.num_guests_each_night_orig = []
-        self.person_shareprice_list_orig = []
+        self.per_person_cost_each_night_orig = [] # length num_nights
+        self.num_guests_each_night_orig = [] # length num_nights
+        self.person_shareprice_list_orig = [] # length num_guests
         
         # Calculate per-night cost breakdown        
         for i in range(self.num_nights):
@@ -161,4 +161,4 @@ class Stay:
             for j in range(self.num_guests):
                 print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
                 
-            print("------------------------------------------")
+            print("===========================================")
