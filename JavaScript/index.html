@@ -1,40 +1,9 @@
-<!--html>
-    <head>
-        <meta charset="UTF-8">
-        <title>Main Page</title>
-        <script src="Stay.js"></script>
-        <script>
-      
-         </script>
-    </head>
-
-    <body>
-        <h1>
-            <p>Please enter relevant information</p>
-        </h1>
-        <form id="infoGather">
-            Number of people:
-            <input type="number" id="peopleNum" name="people" min="1" value="1">
-            Number of nights:
-            <input type="number" id="nightsNum" name="nights" min="1" value="1">
-            Total cost($):
-            <input type="number" id="costNum" name="cost" min="1" value="1">
-        </form>
-        <h2>Calculate</h2>
-
-        
-
-        <table id="tableSplit"></table>
-
-        <script src="design.js"></script>
-    </body>
-</html-->
-
 <!DOCTYPE html>
 <html>
 <head lang="en">
    <meta charset="utf-8">
    <title>Activity Log</title>
+   <script src="Stay.js"></script>
    <script>
 
       // Wait until the window finishes loaded before executing any script
@@ -46,6 +15,9 @@
         // Select the add_activity button
         var addButton = document.getElementById("add_activity");
 
+        // Select the calculate button
+        var calcButton = document.getElementById("calculate");
+
         // Select the table element
         var tracklistTable = document.getElementById("tracklist");
 
@@ -53,11 +25,40 @@
         addButton.onclick = function() {
 
         // Add a new row to the table using the correct activityNumber
-          tracklistTable.innerHTML += '<tr><td>' + activityNumber + '</td><td><label>Person: </label><br/><input type="text" name="person' + activityNumber + '" class="required"></td><td><input type="text" name="nights' + activityNumber + '" class="required"></td></tr>';
+          tracklistTable.innerHTML += '<tr><td>' + activityNumber + '</td><td><label>Person ' + activityNumber + ': </label><br/><input type="text" name="person' + activityNumber + ' id="person' + activityNumber + ' class="required"></td><td><input type="text" name="nights' + activityNumber + '" class="required"></td></tr>';
 
           // Increment the activityNumber
           activityNumber += 1;
         }
+
+        document.getElementById("calculate").addEventListener("click", function() {
+
+          const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
+
+          var inputs, index;
+
+          //Create NodeList
+          inputs = document.getElementsByTagName('input');
+
+          //convert nodelist into array
+          var inputsArr = Array.from(inputs);
+
+
+
+          for (index = 0; index < inputs.length-3; ++index) {
+            var per, night;
+
+            per = inputsArr[index].value;
+            index++;
+            night = inputsArr[index].value;
+
+            stay.AddPerson(per,  Array.from(String(night), Number));
+          }
+
+          //var message = document.getElementById("person1").value;
+          //alert( message );
+
+        }, false);
 
       }
 
@@ -71,24 +72,29 @@
           <div class="leftcol">
               <form name='mainForm' id='mainForm' method="get" action="#">
                 <fieldset>
-                   <legend>Enter info</legend>
+                   <legend>Input Information</legend>
                    <table id="tracklist">
                     <tr>
                       <th colspan="3">Track List: </th>
                     </tr>
                     <tr>
                       <td>1</td>
-                      <td><label>Person 1: </label><br/><input type="text" name="person1" class="required"></td><input type="text" name="nights1" class="required"></td>
+                      <td> <label>Person 1: </label> <br/> <input type="text" id="person1" name="person1" value="" class="required"><input type="text" name="nights1" class="required"> </td>
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td><label>Person 2: </label><br/><input type="text" name="actlog2" class="required"></td><input type="text" name="nights2" class="required"></td>
+                      <td><label>Person 2: </label><br/><input type="text" name="person2" id="person2" class="required"><input type="text" name="nights2" class="required"></td>
                     </tr>
                    </table>
                    <input type="submit" />
                 </fieldset>
               </form>
-              <button id="add_activity">Add Activity</button>
+              <button id="add_activity">Add Person</button>
+              <button id="calculate">Calculate</button>
+              <label>Total Cost: </label>
+              <input type="text" name="totalCost" id="totalCost" class="required">
+              <label>Total Number of Nights: </label>
+              <input type="number" name="person2" id="totalNights"class="required">
           </div>
       </div>
   </div>
