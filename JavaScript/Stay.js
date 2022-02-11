@@ -96,6 +96,8 @@ class Stay
         }  
 
         this.original_costs_calculated = true;
+
+        return this.person_shareprice_list_orig;
     }
 
     ChangeTotalPrice(new_total_price)

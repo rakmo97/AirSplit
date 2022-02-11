@@ -10,7 +10,7 @@
       window.onload = function() {
 
         // Initialize the activityNumber
-        var activityNumber = 3;
+        var activityNumber = 1;
 
         // Select the add_activity button
         var addButton = document.getElementById("add_activity");
@@ -19,13 +19,19 @@
         var calcButton = document.getElementById("calculate");
 
         // Select the table element
-        var tracklistTable = document.getElementById("tracklist");
+        var divTable = document.getElementById("divlist");
+
+        // Select the table element
+        var resultTable = document.getElementById("resultlist");
 
         // Attach handler to the button click event
         addButton.onclick = function() {
 
         // Add a new row to the table using the correct activityNumber
-          tracklistTable.innerHTML += '<tr><td>' + activityNumber + '</td><td><label>Person ' + activityNumber + ': </label><br/><input type="text" name="person' + activityNumber + ' id="person' + activityNumber + ' class="required"></td><td><input type="text" name="nights' + activityNumber + '" class="required"></td></tr>';
+          //divTable.innerHTML += '<tr><td>' + activityNumber + '</td><td><label>Person ' + activityNumber + ': </label><br/><input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required"></td><td><input type="date" id="nightsStart' + activityNumber + '" name="nightsStart' + activityNumber + '" value=""><input type="date" id="nightsEnd' + activityNumber + '" name="nightsEnd' + activityNumber + '" value=""></td></tr>';
+          divTable.innerHTML += '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
+            <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
+            <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>';
 
           // Increment the activityNumber
           activityNumber += 1;
@@ -35,8 +41,8 @@
 
           const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
 
-          var inputs, index;
-
+          var inputs, index, orgCosts;
+          let persons = [];
           //Create NodeList
           inputs = document.getElementsByTagName('input');
 
@@ -49,10 +55,19 @@
             var per, night;
 
             per = inputsArr[index].value;
+            persons.push(per);
             index++;
             night = inputsArr[index].value;
 
             stay.AddPerson(per,  Array.from(String(night), Number));
+          }
+
+          orgCosts = stay.CalculateOriginalCosts();
+
+          alert(orgCosts);
+
+          for (index = 0; index < orgCosts.length; ++index) {
+            divTable.innerHTML += '<tr><td><label>' + persons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
           }
 
         }, false);
@@ -70,8 +85,8 @@
               <form name='mainForm' id='mainForm' method="get" action="#">
                 <fieldset>
                    <legend>Input Information</legend>
-                   <table id="tracklist">
-                    <tr>
+                   <table id="divlist">
+                    <!--tr>
                       <th colspan="3">Track List: </th>
                     </tr>
                     <tr>
@@ -81,7 +96,7 @@
                     <tr>
                       <td>2</td>
                       <td><label>Person 2: </label><br/><input type="text" name="person2" id="person2" class="required"><input type="text" name="nights2" class="required"></td>
-                    </tr>
+                    </tr-->
                    </table>
                    <input type="submit" />
                 </fieldset>
@@ -89,7 +104,7 @@
               <button id="add_activity">Add Person</button>
               <button id="calculate">Calculate</button>
               <label>Total Cost: </label>
-              <input type="text" name="totalCost" id="totalCost" class="required">
+              <input type="number" name="totalCost" id="totalCost" class="required">
               <label>Total Number of Nights: </label>
               <input type="number" name="person2" id="totalNights"class="required">
           </div>
@@ -97,3 +112,4 @@
   </div>
 </body>
 </html>
+
