@@ -9,6 +9,11 @@
       // Wait until the window finishes loaded before executing any script
       window.onload = function() {
 
+
+        let orgPersons = [];
+        let orgNights = [];
+
+
         // Initialize the activityNumber
         var activityNumber = 1;
 
@@ -42,7 +47,8 @@
           const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
 
           var inputs, index, orgCosts;
-          let persons = [];
+          
+
           //Create NodeList
           inputs = document.getElementsByTagName('input');
 
@@ -55,9 +61,11 @@
             var per, night;
 
             per = inputsArr[index].value;
-            persons.push(per);
+            orgPersons.push(per);
             index++;
             night = inputsArr[index].value;
+            orgNights.push(night);
+
 
             stay.AddPerson(per,  Array.from(String(night), Number));
           }
@@ -67,10 +75,26 @@
           alert(orgCosts);
 
           for (index = 0; index < orgCosts.length; ++index) {
-            divTable.innerHTML += '<tr><td><label>' + persons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
+            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
           }
 
+          //divTable.innerHTML += '<tr><td><button id="recalculate">Recalculate</button></td></tr>';
+
         }, false);
+
+
+        document.getElementById("recalculate").addEventListener("click", function() {
+
+          recal = 1;
+          var index;
+
+          for (index = 0; index < orgPersons.length; ++index) {
+            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
+            <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
+            <input type="text" id="renightS' + recal + '" name="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
+          }
+
+       }, false);
 
       }
 
@@ -102,6 +126,7 @@
               </form>
               <button id="add_activity">Add Person</button>
               <button id="calculate">Calculate</button>
+              <button id="recalculate">Recalculate</button>
               <label>Total Cost: </label>
               <input type="number" name="totalCost" id="totalCost" class="required">
               <label>Total Number of Nights: </label>
