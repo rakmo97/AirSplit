@@ -12,7 +12,7 @@
 
         let orgPersons = [];
         let orgNights = [];
-
+        var orgCosts;
 
         // Initialize the activityNumber
         var activityNumber = 1;
@@ -29,11 +29,14 @@
         // Select the table element
         var resultTable = document.getElementById("resultlist");
 
+        var totalCost, totalNights;
+
+        const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
+
         // Attach handler to the button click event
         addButton.onclick = function() {
 
         // Add a new row to the table using the correct activityNumber
-          //divTable.innerHTML += '<tr><td>' + activityNumber + '</td><td><label>Person ' + activityNumber + ': </label><br/><input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required"></td><td><input type="date" id="nightsStart' + activityNumber + '" name="nightsStart' + activityNumber + '" value=""><input type="date" id="nightsEnd' + activityNumber + '" name="nightsEnd' + activityNumber + '" value=""></td></tr>';
           divTable.innerHTML += '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
             <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
             <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>';
@@ -44,9 +47,17 @@
 
         document.getElementById("calculate").addEventListener("click", function() {
 
-          const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
+          totalCost = document.getElementById("totalCost").value;
+          totalNights = document.getElementById("totalNights").value;
 
-          var inputs, index, orgCosts;
+          const stay = new Stay(totalCost, totalNights);
+
+          totalCost = document.getElementById("totalCost").value;
+          totalNights = document.getElementById("totalNights").value;
+          //stay.ChangeTotalPrice(document.getElementById("totalCost").value)
+          //stay.ChangeTotalNights(document.getElementById("totalNights").value)
+
+          var inputs, index;
           
 
           //Create NodeList
@@ -85,16 +96,39 @@
 
         document.getElementById("recalculate").addEventListener("click", function() {
 
-          recal = 1;
+          
+          var recal = 1;
           var index;
 
           for (index = 0; index < orgPersons.length; ++index) {
             divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
             <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
-            <input type="text" id="renightS' + recal + '" name="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
+            <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
           }
 
-       }, false);
+        }, false);
+
+        document.getElementById("redistribute").addEventListener("click", function() {
+
+          var recal = 1;
+          var index;
+          let repersons = [];
+          let renights =[];
+
+          repersons = document.querySelector('[id^="reperson"]');
+          var repersonsArr = Array.from(repersons);
+          renights = document.querySelector('[id^="renights"]');
+          var renightsArr = Array.from(renights);
+
+          alert(renightsArr[0]);
+          for (index = 0; index < repersonsArr.length; ++index) {
+            stay.ChangePersonNights(repersonsArr[index].value, Array.from(String(renightsArr[index].value), Number))
+          }
+
+          redistCost = stay.CalculateRedistribution();
+          alert(orgCosts);
+
+        }, false);
 
       }
 
@@ -127,6 +161,7 @@
               <button id="add_activity">Add Person</button>
               <button id="calculate">Calculate</button>
               <button id="recalculate">Recalculate</button>
+              <button id="redistribute">Redistribute</button>
               <label>Total Cost: </label>
               <input type="number" name="totalCost" id="totalCost" class="required">
               <label>Total Number of Nights: </label>

@@ -1,9 +1,13 @@
-
+let instance = null;
 
 class Stay
 {
     constructor(total_price, num_nights)
     {
+
+        // if an object has already been created return it
+        if (instance) return instance;
+
         this.total_price = total_price;
         this.num_nights = num_nights;
         this.name_list = []; 
@@ -15,6 +19,20 @@ class Stay
         // Flag for if original cost was calculated
         this.original_costs_calculated = false;
         this.num_guests = 0;
+
+        this.counter = 0;
+
+        // store the new object
+        instance = this;
+
+        return instance;
+        
+    }
+
+    
+    // return the unique object or create it
+    static getInstance() {
+        return instance || new Counter();
     }
 
     AddPerson(name, nights_staying)
@@ -106,6 +124,11 @@ class Stay
         this.per_night_total_cost = this.total_price / this.num_nights;
     }
 
+    ChangeTotalNights(total_nights)
+    {
+        this.num_nights = total_nights;
+    }
+
     ChangePersonNights(name, nights_staying)
     {
         let index = this.name_list.indexOf(name); // Get index of person with input name   
@@ -149,6 +172,7 @@ class Stay
 
             this.num_guests_each_night_new.push(num_guests_tonight);
             this.per_person_cost_each_night_new.push(per_person_cost_tonight);
+            
         }
 
         // Calculate per guest cost breakdown
@@ -179,6 +203,8 @@ class Stay
         {
             this.amount_to_send.push(this.person_shareprice_list_new[j]- this.person_shareprice_list_orig[j]);
         }
+
+        return this.per_person_cost_each_night_new;
     }
 }
 
