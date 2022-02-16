@@ -5,9 +5,6 @@ class Stay
     constructor(total_price, num_nights)
     {
 
-        // if an object has already been created return it
-        if (instance) return instance;
-
         this.total_price = total_price;
         this.num_nights = num_nights;
         this.name_list = []; 
@@ -20,19 +17,6 @@ class Stay
         this.original_costs_calculated = false;
         this.num_guests = 0;
 
-        this.counter = 0;
-
-        // store the new object
-        instance = this;
-
-        return instance;
-        
-    }
-
-    
-    // return the unique object or create it
-    static getInstance() {
-        return instance || new Counter();
     }
 
     AddPerson(name, nights_staying)

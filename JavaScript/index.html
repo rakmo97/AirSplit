@@ -9,10 +9,10 @@
       // Wait until the window finishes loaded before executing any script
       window.onload = function() {
 
-
+        var totalCost, totalNights;
         let orgPersons = [];
         let orgNights = [];
-        var orgCosts;
+        var orgCosts = [];
 
         // Initialize the activityNumber
         var activityNumber = 1;
@@ -28,8 +28,6 @@
 
         // Select the table element
         var resultTable = document.getElementById("resultlist");
-
-        var totalCost, totalNights;
 
         const stay = new Stay(document.getElementById("totalCost").value, document.getElementById("totalNights").value);
 
@@ -47,26 +45,19 @@
 
         document.getElementById("calculate").addEventListener("click", function() {
 
+
           totalCost = document.getElementById("totalCost").value;
           totalNights = document.getElementById("totalNights").value;
 
           const stay = new Stay(totalCost, totalNights);
 
-          totalCost = document.getElementById("totalCost").value;
-          totalNights = document.getElementById("totalNights").value;
-          //stay.ChangeTotalPrice(document.getElementById("totalCost").value)
-          //stay.ChangeTotalNights(document.getElementById("totalNights").value)
-
           var inputs, index;
           
-
           //Create NodeList
           inputs = document.getElementsByTagName('input');
 
           //convert nodelist into array
           var inputsArr = Array.from(inputs);
-
-
 
           for (index = 0; index < inputs.length-3; ++index) {
             var per, night;
@@ -77,13 +68,12 @@
             night = inputsArr[index].value;
             orgNights.push(night);
 
-
             stay.AddPerson(per,  Array.from(String(night), Number));
           }
 
           orgCosts = stay.CalculateOriginalCosts();
 
-          alert(orgCosts);
+          alert(orgPersons);
 
           for (index = 0; index < orgCosts.length; ++index) {
             divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
