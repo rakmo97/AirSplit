@@ -14,6 +14,9 @@
         let orgNights = [];
         var orgCosts = [];
 
+        var recal;
+        var recalculating = false;
+        
         // Initialize the activityNumber
         var activityNumber = 1;
 
@@ -35,10 +38,18 @@
         addButton.onclick = function() {
 
         // Add a new row to the table using the correct activityNumber
-          divTable.innerHTML += '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
-            <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
-            <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>';
 
+          if (recalculating){
+            divTable.innerHTML += '<tr><td><label>Person</label><br/> \
+            <input type="text" name="reperson' + recal + '" id="AddReperson' + recal + '"  value="" placeholder="Name"> \
+            <input type="text" name="renights' + recal + '" id="AddRenights' + recal + '" value="" placeholder="Nights"></td></tr>';
+            recal++;
+          }
+          else{
+            divTable.innerHTML += '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
+              <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
+              <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>';
+          }
           // Increment the activityNumber
           activityNumber += 1;
         }
@@ -69,11 +80,12 @@
             orgNights.push(night);
 
             stay.AddPerson(per,  Array.from(String(night), Number));
+
           }
 
           orgCosts = stay.CalculateOriginalCosts();
 
-          alert(orgPersons);
+         // alert(orgCosts);
 
           for (index = 0; index < orgCosts.length; ++index) {
             divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
@@ -86,37 +98,61 @@
 
         document.getElementById("recalculate").addEventListener("click", function() {
 
-          
-          var recal = 1;
+          recalculating = true;
+          recal = 1;
           var index;
 
           for (index = 0; index < orgPersons.length; ++index) {
             divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
             <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
             <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
+            recal++;
           }
 
         }, false);
 
         document.getElementById("redistribute").addEventListener("click", function() {
 
-          var recal = 1;
           var index;
           let repersons = [];
           let renights =[];
 
-          repersons = document.querySelector('[id^="reperson"]');
-          var repersonsArr = Array.from(repersons);
-          renights = document.querySelector('[id^="renights"]');
-          var renightsArr = Array.from(renights);
+          const stay = new Stay(totalCost, totalNights);
 
-          alert(renightsArr[0]);
-          for (index = 0; index < repersonsArr.length; ++index) {
-            stay.ChangePersonNights(repersonsArr[index].value, Array.from(String(renightsArr[index].value), Number))
+          for (index = 0; index < orgPersons.length; index++) {
+            stay.AddPerson(orgPersons[index],  Array.from(String(orgNights[index]), Number));
           }
 
-          redistCost = stay.CalculateRedistribution();
-          alert(orgCosts);
+          stay.CalculateOriginalCosts();
+
+          repersons = document.querySelectorAll('[id^="reperson"]');
+          var repersonsArr = Array.from(repersons);
+          renights = document.querySelectorAll('[id^="renights"]');
+          var renightsArr = Array.from(renights);
+
+          AddRepersons = document.querySelectorAll('[id^="AddRe"]');
+          var AddRepersonsArr = Array.from(AddRepersons);
+          AddRenights = document.querySelectorAll('[id^="AddRe"]');
+          var AddRenightsArr = Array.from(AddRenights);
+
+          for (index=0; index < repersonsArr.length; index++){
+
+            if (renightsArr[index].value != orgNights[index]){
+              stay.ChangePersonNights(repersonsArr[index].value, Array.from(String(renightsArr[index].value), Number))
+            }
+
+          }
+
+          for (index = 0; index < AddRepersons.length; index++) {
+            stay.AddPerson(AddRepersonsArr[index].value, Array.from(String(AddRenightsArr[index].value), Number))
+          }
+
+           redistCosts = stay.CalculateRedistribution();
+
+          alert(redistCosts);
+           for (index = 0; index < redistCosts.length; index++) {
+            divTable.innerHTML += '<tr><td><label>Person: </label><label>' + redistCosts[index] + '</label><br/></td></tr>';
+          }
 
         }, false);
 
