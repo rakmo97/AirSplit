@@ -1,5 +1,3 @@
-let instance = null;
-
 class Stay
 {
     constructor(total_price, num_nights)
