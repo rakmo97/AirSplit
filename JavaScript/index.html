@@ -14,7 +14,7 @@
         let orgNights = [];
         var orgCosts = [];
 
-        var recal;
+        var recal = 1;
         var recalculating = false;
         
         // Initialize the activityNumber
@@ -85,13 +85,9 @@
 
           orgCosts = stay.CalculateOriginalCosts();
 
-         // alert(orgCosts);
-
           for (index = 0; index < orgCosts.length; ++index) {
-            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': </label><label>' + orgCosts[index] + '</label><br/></td></tr>';
+            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
           }
-
-          //divTable.innerHTML += '<tr><td><button id="recalculate">Recalculate</button></td></tr>';
 
         }, false);
 
@@ -115,7 +111,7 @@
 
           var index;
           let repersons = [];
-          let renights =[];
+          let renights = [];
 
           const stay = new Stay(totalCost, totalNights);
 
@@ -124,15 +120,15 @@
           }
 
           stay.CalculateOriginalCosts();
-
+          
           repersons = document.querySelectorAll('[id^="reperson"]');
           var repersonsArr = Array.from(repersons);
           renights = document.querySelectorAll('[id^="renights"]');
           var renightsArr = Array.from(renights);
 
-          AddRepersons = document.querySelectorAll('[id^="AddRe"]');
+          AddRepersons = document.querySelectorAll('[id^="AddReperson"]');
           var AddRepersonsArr = Array.from(AddRepersons);
-          AddRenights = document.querySelectorAll('[id^="AddRe"]');
+          AddRenights = document.querySelectorAll('[id^="AddRenights"]');
           var AddRenightsArr = Array.from(AddRenights);
 
           for (index=0; index < repersonsArr.length; index++){
@@ -147,11 +143,20 @@
             stay.AddPerson(AddRepersonsArr[index].value, Array.from(String(AddRenightsArr[index].value), Number))
           }
 
-           redistCosts = stay.CalculateRedistribution();
+          stay.CalculateRedistribution();
 
-          alert(redistCosts);
-           for (index = 0; index < redistCosts.length; index++) {
-            divTable.innerHTML += '<tr><td><label>Person: </label><label>' + redistCosts[index] + '</label><br/></td></tr>';
+          //print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
+
+          for (index = 0; index < stay.num_guests; index++) {
+            divTable.innerHTML += '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>';
+          }
+
+          divTable.innerHTML += '<tr><td><br/></td></tr>';
+
+          //print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
+
+          for (index = 0; index < stay.num_guests; index++) {
+            divTable.innerHTML += '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>';
           }
 
         }, false);

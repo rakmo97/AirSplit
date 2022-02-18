@@ -187,8 +187,6 @@ class Stay
         {
             this.amount_to_send.push(this.person_shareprice_list_new[j]- this.person_shareprice_list_orig[j]);
         }
-
-        return this.per_person_cost_each_night_new;
     }
 }
 
