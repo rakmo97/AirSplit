@@ -1,9 +1,8 @@
-
-
 class Stay
 {
     constructor(total_price, num_nights)
     {
+
         this.total_price = total_price;
         this.num_nights = num_nights;
         this.name_list = []; 
@@ -15,6 +14,7 @@ class Stay
         // Flag for if original cost was calculated
         this.original_costs_calculated = false;
         this.num_guests = 0;
+
     }
 
     AddPerson(name, nights_staying)
@@ -96,12 +96,19 @@ class Stay
         }  
 
         this.original_costs_calculated = true;
+
+        return this.person_shareprice_list_orig;
     }
 
     ChangeTotalPrice(new_total_price)
     {
         this.total_price = new_total_price;
         this.per_night_total_cost = this.total_price / this.num_nights;
+    }
+
+    ChangeTotalNights(total_nights)
+    {
+        this.num_nights = total_nights;
     }
 
     ChangePersonNights(name, nights_staying)
@@ -147,6 +154,7 @@ class Stay
 
             this.num_guests_each_night_new.push(num_guests_tonight);
             this.per_person_cost_each_night_new.push(per_person_cost_tonight);
+            
         }
 
         // Calculate per guest cost breakdown
