@@ -89,6 +89,11 @@
             divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
           }
 
+          document.getElementById("calculate").disabled = true;
+          document.getElementById("recalculate").disabled = false;
+          document.getElementById("add_activity").disabled = true;
+
+
         }, false);
 
 
@@ -104,6 +109,11 @@
             <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
             recal++;
           }
+
+          document.getElementById("recalculate").disabled = true;
+          document.getElementById("redistribute").disabled = false;
+          document.getElementById("add_activity").disabled = false;
+
 
         }, false);
 
@@ -159,6 +169,10 @@
             divTable.innerHTML += '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>';
           }
 
+          document.getElementById("add_activity").disabled = true;
+          document.getElementById("redistribute").disabled = true;
+
+
         }, false);
 
       }
@@ -191,12 +205,14 @@
               </form>
               <button id="add_activity">Add Person</button>
               <button id="calculate">Calculate</button>
-              <button id="recalculate">Recalculate</button>
-              <button id="redistribute">Redistribute</button>
+              <button id="recalculate" disabled>Recalculate</button>
+              <button id="redistribute" disabled>Redistribute</button>
               <label>Total Cost: </label>
               <input type="number" name="totalCost" id="totalCost" class="required">
               <label>Total Number of Nights: </label>
               <input type="number" name="person2" id="totalNights"class="required">
+              <br/><br/><br/><br/>
+              <button onClick="window.location.reload();">Start Over</button>
           </div>
       </div>
   </div>
