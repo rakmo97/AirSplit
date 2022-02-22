@@ -68,11 +68,6 @@
 
           var persons, index;
           
-          //Create NodeList
-          //inputs = document.getElementsByTagName('input');
-          //convert nodelist into array
-          //var inputsArr = Array.from(inputs);
-
           persons = document.querySelectorAll('[id^="person"]');
           var personsArr = Array.from(persons);
 
@@ -109,12 +104,23 @@
 
         document.getElementById("recalculate").addEventListener("click", function() {
 
-          document.getElementById("person1").disabled = true;
-          document.getElementById("nights1").disabled = true;
+          var persons, nights, index;
+
+          persons = document.querySelectorAll('[id^="person"]');
+          //var personsArr = Array.from(persons);
+          nights = document.querySelectorAll('[id^="nights"]');
+          //var nightsArr = Array.from(nights);
+
+          for(index = 1; index <= persons.length; index++){
+            document.getElementById("person" + index).disabled = true;
+            document.getElementById("nights" + index).disabled = true;
+          }
+          
 
           recalculating = true;
           recal = 1;
-          var index;
+
+          recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>Modifications:</b></label></td></tr>');
 
           for (index = 0; index < orgPersons.length; ++index) {
             recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
@@ -169,6 +175,9 @@
 
           stay.CalculateRedistribution();
 
+
+          redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>Money Redistribution:</b></label><br/></td></tr>');
+
           //print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
 
           for (index = 0; index < stay.num_guests; index++) {
@@ -203,6 +212,7 @@
                 <fieldset>
                    <legend>Input Information</legend>
                    <table id="calcTable">
+                    <tr><td><label><b>Original travelers:</b></label><br/></td></tr>
                     <!-- Elements wil be dynamically added here -->
                    </table>
                    <table id="calcResultTable">
