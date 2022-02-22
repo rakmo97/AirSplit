@@ -94,10 +94,7 @@
             calcResultTableJS.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
           }
 
-          //document.getElementById("calculate").disabled = true;
           document.getElementById("recalculate").disabled = false;
-          //document.getElementById("add_activity").disabled = true;
-
 
         }, false);
 
@@ -107,15 +104,15 @@
           var persons, nights, index;
 
           persons = document.querySelectorAll('[id^="person"]');
-          //var personsArr = Array.from(persons);
           nights = document.querySelectorAll('[id^="nights"]');
-          //var nightsArr = Array.from(nights);
 
           for(index = 1; index <= persons.length; index++){
             document.getElementById("person" + index).disabled = true;
             document.getElementById("nights" + index).disabled = true;
           }
           
+          document.getElementById("totalCost").disabled = true;
+          document.getElementById("totalNights").disabled = true;
 
           recalculating = true;
           recal = 1;
@@ -235,7 +232,7 @@
               <label>Total Cost: </label>
               <input type="number" name="totalCost" id="totalCost" class="required">
               <label>Total Number of Nights: </label>
-              <input type="number" name="person2" id="totalNights"class="required">
+              <input type="number" name="totalNights" id="totalNights"class="required">
               <br/><br/><br/><br/>
               <button onClick="window.location.reload();">Start Over</button>
           </div>
