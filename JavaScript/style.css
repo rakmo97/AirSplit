@@ -1,0 +1,21 @@
+html {
+	font-family: sans-serif;
+}
+
+form {
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+
+fieldset {
+	background-color: #F5A623;
+}
+
+legend {
+	background-color: white;
+}
+
+button {
+	margin:  5px;
+	background-color: #23EAF5;
+}

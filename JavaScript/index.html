@@ -2,6 +2,7 @@
 <html>
 <head lang="en">
    <meta charset="utf-8">
+   <link rel="stylesheet" type="text/css" href="style.css">
    <title>Activity Log</title>
    <script src="Stay.js"></script>
    <script>
@@ -183,38 +184,22 @@
 
 <body>
   <div class="container">
-      <div class="row">
-          <div class="leftcol">
-              <form name='mainForm' id='mainForm' method="get" action="#">
-                <fieldset>
-                   <legend>Input Information</legend>
-                   <table id="divlist">
-                    <!--tr>
-                      <th colspan="3">Track List: </th>
-                    </tr>
-                    <tr>
-                      <td>1</td>
-                      <td> <label>Person 1: </label> <br/> <input type="text" id="person1" name="person1" value="" class="required"><input type="text" name="nights1" class="required"> </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><label>Person 2: </label><br/><input type="text" name="person2" id="person2" class="required"><input type="text" name="nights2" class="required"></td>
-                    </tr-->
-                   </table>
-                </fieldset>
-              </form>
-              <button id="add_activity">Add Person</button>
-              <button id="calculate">Calculate</button>
-              <button id="recalculate" disabled>Make Changes</button>
-              <button id="redistribute" disabled>Redistribute</button>
-              <label>Total Cost: </label>
-              <input type="number" name="totalCost" id="totalCost" class="required">
-              <label>Total Number of Nights: </label>
-              <input type="number" name="person2" id="totalNights"class="required">
-              <br/><br/><br/><br/>
-              <button onClick="window.location.reload();">Start Over</button>
-          </div>
-      </div>
+    <form name='mainForm' id='mainForm' method="get" action="#">
+      <fieldset>
+         <legend>Input Information</legend>
+         <table id="divlist"></table>
+      </fieldset>
+    </form>
+    <button id="add_activity">Add Person</button>
+    <button id="calculate">Calculate</button>
+    <button id="recalculate" disabled>Make Changes</button>
+    <button id="redistribute" disabled>Redistribute</button>
+    <label>Total Cost: </label>
+    <input type="number" name="totalCost" id="totalCost" class="required">
+    <label>Total Number of Nights: </label>
+    <input type="number" name="person2" id="totalNights"class="required">
+    <br/><br/><br/><br/>
+    <button onClick="window.location.reload();">Start Over</button>
   </div>
 </body>
 </html>
