@@ -40,15 +40,15 @@
         // Add a new row to the table using the correct activityNumber
 
           if (recalculating){
-            divTable.innerHTML += '<tr><td><label>Person</label><br/> \
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>Person</label><br/> \
             <input type="text" name="reperson' + recal + '" id="AddReperson' + recal + '"  value="" placeholder="Name"> \
-            <input type="text" name="renights' + recal + '" id="AddRenights' + recal + '" value="" placeholder="Nights"></td></tr>';
+            <input type="text" name="renights' + recal + '" id="AddRenights' + recal + '" value="" placeholder="Nights"></td></tr>');
             recal++;
           }
           else{
-            divTable.innerHTML += '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
               <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
-              <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>';
+              <input type="text" id="nightS' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>');
           }
           // Increment the activityNumber
           activityNumber += 1;
@@ -85,8 +85,9 @@
 
           orgCosts = stay.CalculateOriginalCosts();
 
+          divTable.insertAdjacentHTML("beforeend", '<tr><td><label>LATEST CALCULATION</label><br/></td></tr>');
           for (index = 0; index < orgCosts.length; ++index) {
-            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>');
           }
 
           document.getElementById("calculate").disabled = true;
@@ -104,9 +105,9 @@
           var index;
 
           for (index = 0; index < orgPersons.length; ++index) {
-            divTable.innerHTML += '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
             <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
-            <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>';
+            <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>');
             recal++;
           }
 
@@ -158,15 +159,15 @@
           //print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
 
           for (index = 0; index < stay.num_guests; index++) {
-            divTable.innerHTML += '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>';
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>');
           }
 
-          divTable.innerHTML += '<tr><td><br/></td></tr>';
+          divTable.insertAdjacentHTML("beforeend", '<tr><td><br/></td></tr>');
 
           //print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
 
           for (index = 0; index < stay.num_guests; index++) {
-            divTable.innerHTML += '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>';
+            divTable.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>');
           }
 
           document.getElementById("add_activity").disabled = true;
