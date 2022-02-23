@@ -36,9 +36,9 @@ window.onload = function() {
 
         if (recalculating){
         recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>Person</label><br/> \
-        <input type="text" name="reperson' + recal + '" id="AddReperson' + recal + '"  value="" placeholder="Name"> \
-        <input type="text" name="renights' + recal + '" id="AddRenights' + recal + '" value="" placeholder="Nights"></td></tr>');
-        recal++;
+            <input type="text" name="reperson' + recal + '" id="AddReperson' + recal + '"  value="" placeholder="Name"> \
+            <input type="text" name="renights' + recal + '" id="AddRenights' + recal + '" value="" placeholder="Nights"></td></tr>');
+            recal++;
         }
         else{
         calcTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
@@ -67,15 +67,15 @@ window.onload = function() {
         var nightsArr = Array.from(nights);
 
         for (index = 0; index < personsArr.length; index++) {
-        var per, night;
+            var per, night;
 
-        per = personsArr[index].value;
-        orgPersons.push(per);
-        //index++;
-        night = nightsArr[index].value;
-        orgNights.push(night);
+            per = personsArr[index].value;
+            orgPersons.push(per);
+            //index++;
+            night = nightsArr[index].value;
+            orgNights.push(night);
 
-        stay.AddPerson(per,  Array.from(String(night), Number));
+            stay.AddPerson(per,  Array.from(String(night), Number));
 
         }
 
@@ -83,7 +83,7 @@ window.onload = function() {
 
         calcResultTableJS.innerHTML = '';
         for (index = 0; index < orgCosts.length; index++) {
-        calcResultTableJS.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
+            calcResultTableJS.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
         }
 
         document.getElementById("recalculate").disabled = false;
@@ -99,8 +99,8 @@ window.onload = function() {
         nights = document.querySelectorAll('[id^="nights"]');
 
         for(index = 1; index <= persons.length; index++){
-        document.getElementById("person" + index).disabled = true;
-        document.getElementById("nights" + index).disabled = true;
+            document.getElementById("person" + index).disabled = true;
+            document.getElementById("nights" + index).disabled = true;
         }
         
         document.getElementById("totalCost").disabled = true;
@@ -112,10 +112,10 @@ window.onload = function() {
         recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>Modifications:</b></label></td></tr>');
 
         for (index = 0; index < orgPersons.length; ++index) {
-        recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
-        <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
-        <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>');
-        recal++;
+            recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
+            <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
+            <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>');
+            recal++;
         }
 
         document.getElementById("calculate").disabled = true;
@@ -135,7 +135,7 @@ window.onload = function() {
         const stay = new Stay(totalCost, totalNights);
 
         for (index = 0; index < orgPersons.length; index++) {
-        stay.AddPerson(orgPersons[index],  Array.from(String(orgNights[index]), Number));
+            stay.AddPerson(orgPersons[index],  Array.from(String(orgNights[index]), Number));
         }
 
         stay.CalculateOriginalCosts();
@@ -159,7 +159,7 @@ window.onload = function() {
         }
 
         for (index = 0; index < AddRepersons.length; index++) {
-        stay.AddPerson(AddRepersonsArr[index].value, Array.from(String(AddRenightsArr[index].value), Number))
+            stay.AddPerson(AddRepersonsArr[index].value, Array.from(String(AddRenightsArr[index].value), Number))
         }
 
         stay.CalculateRedistribution();
@@ -170,7 +170,7 @@ window.onload = function() {
         //print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
 
         for (index = 0; index < stay.num_guests; index++) {
-        redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>');
+            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>');
         }
 
         redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><br/></td></tr>');
@@ -178,7 +178,7 @@ window.onload = function() {
         //print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
 
         for (index = 0; index < stay.num_guests; index++) {
-        redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>');
+            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>');
         }
 
         document.getElementById("add_activity").disabled = true;
