@@ -152,9 +152,9 @@ window.onload = function() {
 
         for (index=0; index < repersonsArr.length; index++){
 
-        if (renightsArr[index].value != orgNights[index]){
-            stay.ChangePersonNights(repersonsArr[index].value, Array.from(String(renightsArr[index].value), Number))
-        }
+            if (renightsArr[index].value != orgNights[index]){
+                stay.ChangePersonNights(repersonsArr[index].value, Array.from(String(renightsArr[index].value), Number))
+            }
 
         }
 
