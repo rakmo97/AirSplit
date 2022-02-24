@@ -44,21 +44,21 @@ window.onload = function() {
         calcTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>Person ' + activityNumber + ': </label><br/> \
             <input type="text" name="person' + activityNumber + '" id="person' + activityNumber + '" class="required" placeholder="Name"> \
             <input type="text" id="nights' + activityNumber + '" name="nights' + activityNumber + '" value="" placeholder="Nights"></td></tr>');
-        }
-        // Increment the activityNumber
-        activityNumber += 1;
+            activityNumber += 1;
+        }        
     }
 
     document.getElementById("calculate").addEventListener("click", function() {
 
 
         orgPersons = [];
+        orgNights = [];
         totalCost = document.getElementById("totalCost").value;
         totalNights = document.getElementById("totalNights").value;
 
         const stay = new Stay(totalCost, totalNights);
 
-        var persons, index;
+        var persons, nights, index;
         
         persons = document.querySelectorAll('[id^="person"]');
         var personsArr = Array.from(persons);
@@ -111,7 +111,7 @@ window.onload = function() {
 
         recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>Modifications:</b></label></td></tr>');
 
-        for (index = 0; index < orgPersons.length; ++index) {
+        for (index = 0; index < orgPersons.length; index++) {
             recalTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ' </label><br/> \
             <input type="text" name="reperson' + recal + '" id="reperson' + recal + '"  value="' + orgPersons[index] + '"> \
             <input type="text" name="renights' + recal + '" id="renights' + recal + '" value="' + orgNights[index] + '" ></td></tr>');
