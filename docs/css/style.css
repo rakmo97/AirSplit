@@ -21,7 +21,7 @@ form {
 
 button {
     background-color: initial;
-    background-image: linear-gradient(-180deg, #006eff15, #006eff34);
+    background-image: linear-gradient(-180deg, #006eff34, #006eff34);
     border-radius: 6px;
     box-shadow: rgba(0, 0, 0, 0.1) 0 2px 4px;
     color: #000000;
@@ -47,7 +47,7 @@ button {
 }
 
 button:hover {
-    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+    box-shadow: rgba(129, 129, 129, 0.678) 0 3px 8px;
 }
 
 button:disabled {
