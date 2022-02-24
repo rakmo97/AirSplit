@@ -83,7 +83,7 @@ window.onload = function() {
 
         calcResultTableJS.innerHTML = '';
         for (index = 0; index < orgCosts.length; index++) {
-            calcResultTableJS.innerHTML += '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>';
+            calcResultTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + orgPersons[index] + ': $</label><label>' + orgCosts[index].toFixed(2) + '</label><br/></td></tr>');
         }
 
         document.getElementById("recalculate").disabled = false;
@@ -169,20 +169,21 @@ window.onload = function() {
 
         //print(" - Guest {} is staying {} nights and owes ${:.2f}.".format(self.name_list[j],len(self.nights_staying_list[j]),self.person_shareprice_list_new[j]))
 
+        redisTableJS.innerHTML = '';
         for (index = 0; index < stay.num_guests; index++) {
-            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' is staying ' + stay.nights_staying_list[index].length + ' nights and owes: $</label><label>' + stay.person_shareprice_list_new[index].toFixed(2) + '</label><br/></td></tr>');
+            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>' + stay.name_list[index] + '</b> is staying ' + stay.nights_staying_list[index].length + ' nights and <b>owes</b>: $</label><label><b>' + stay.person_shareprice_list_new[index].toFixed(2) + '</b></label><br/></td></tr>');
         }
 
         redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><br/></td></tr>');
 
         //print(" - Guest {} should {} ${:.2f}.".format(self.name_list[j], "send" if self.amount_to_send[j]>0 else "receive", self.amount_to_send[j]))
-
+        
         for (index = 0; index < stay.num_guests; index++) {
-            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label>' + stay.name_list[index] + ' should ' + ((stay.amount_to_send[index] > 0) ? 'send' : 'receive') + ': $</label><label>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</label><br/></td></tr>');
+            redisTableJS.insertAdjacentHTML("beforeend", '<tr><td><label><b>' + stay.name_list[index] + '</b> should ' + ((stay.amount_to_send[index] > 0) ? '<b>send</b>' : '<b>receive</b>') + ': $</label><label><b>' + Math.abs(stay.amount_to_send[index]).toFixed(2) + '</b></label><br/></td></tr>');
         }
 
-        document.getElementById("add_activity").disabled = true;
-        document.getElementById("redistribute").disabled = true;
+        //document.getElementById("add_activity").disabled = true;
+        //document.getElementById("redistribute").disabled = true;
 
 
     }, false);
